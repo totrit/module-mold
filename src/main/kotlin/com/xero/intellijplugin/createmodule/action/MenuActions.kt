@@ -12,7 +12,7 @@ class MenuActions: ActionGroup() {
         val project = e?.project ?: return emptyArray()
         val config = configParser.parse(project)
         return config.moduleTypes.map {
-            ModuleNameDialogAction(
+            CreateModuleAction(
                 it
             )
         }.toTypedArray()

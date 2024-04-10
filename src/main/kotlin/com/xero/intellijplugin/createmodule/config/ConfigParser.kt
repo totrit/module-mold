@@ -15,12 +15,12 @@ class ConfigParser {
 
     private fun map(project: Project, dto: ConfigDto): Config {
         return Config(
-            packagePrefix = dto.packagePrefix,
             moduleTypes = dto.moduleTypes.map {
                 ModuleTypeConfig(
                     type = it.type,
                     templateDir = File(File(project.basePath, dto.templateRootDir), it.template),
                     rootDir = File(project.basePath, it.type),
+                    rootPackage = dto.rootPackage,
                 )
             }
         )

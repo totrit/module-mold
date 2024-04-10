@@ -2,7 +2,7 @@ package com.xero.intellijplugin.createmodule.config
 
 data class ConfigDto(
     val templateRootDir: String,
-    val packagePrefix: String,
+    val rootPackage: String,
     val moduleTypes: List<ModuleTypeConfigDto>,
 )
 
