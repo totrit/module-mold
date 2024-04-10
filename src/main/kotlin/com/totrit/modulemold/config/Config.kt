@@ -1,4 +1,4 @@
-package com.xero.intellijplugin.createmodule.config
+package com.totrit.modulemold.config
 
 import java.io.File
 

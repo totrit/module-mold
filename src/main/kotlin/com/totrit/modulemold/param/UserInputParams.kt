@@ -1,4 +1,4 @@
-package com.xero.intellijplugin.createmodule.param
+package com.totrit.modulemold.param
 
 data class UserInputParams(
     val moduleName: String,

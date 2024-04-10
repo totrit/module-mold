@@ -1,4 +1,4 @@
-package com.xero.intellijplugin.createmodule.util
+package com.totrit.modulemold.util
 
 import com.intellij.openapi.ui.Messages
 

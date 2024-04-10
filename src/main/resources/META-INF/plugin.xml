@@ -5,16 +5,82 @@
 
   <!-- Public plugin name should be written in Title Case.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-  <name>Create Module</name>
+  <name>Module Mold</name>
 
   <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-  <vendor email="support@xero.com" url="https://xero.com">Xero</vendor>
+  <vendor email="alvin.ruilin.ma@gmail.com" url="https://www.example.com">Alvin Ma</vendor>
 
   <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
   <description><![CDATA[
-    Create a library or feature module from template
+<p>Create module for Android project from template</p>
+<h2 id="what-this-tries-to-solve">What This Tries To Solve</h2>
+<p>In an Android&#39;s typical multi-module project, we often need to create new modules.
+Traditionally we need to copy from an existent module.
+Then we need to tweak the copy by deleting some irrelevant files, changing <code>build.gradle</code>, adding the new module to <code>settings.gradle</code>.</p>
+<p>It&#39;ll be good to automate this process and only need some necessary input, such module name, from the developer.</p>
+<h2 id="how-it-works">How It Works</h2>
+<p>Assuming you have different <em>types</em> of modules in your project, such as some non-user-facing <code>library</code> modules and some other user-facing <code>feature</code> modules, etc.
+You can create a config file, for the plugin, in your project to dictate how each type of module should be created.
+Then the plugin will read the config file and loads up menu options in <code>Tools</code> in Android Studio (or Intellij in general).
+From the menu options you can choose what type of module you&#39;d want to create. Then you&#39;d be prompted to input the module name. Then the automation will do as follows:</p>
+<ul>
+<li>Copy the corresponding module template to a temporary directory</li>
+<li>Replace placeholders in <code>build.gradle</code> file in the copy</li>
+<li>Create source folder as per the package of the module</li>
+<li>Copy the copy in the temporary directory into the project</li>
+<li>Insert an entry for the new module into <code>settings.gradle</code></li>
+<li>Invoke a Gradle Sync for the project</li>
+</ul>
+<h2 id="steps-to-set-up">Steps To Set Up</h2>
+<h3 id="1-install-module-mold-plugin-from-intellij-marketplace">1. Install <code>Module Mold</code> plugin from Intellij Marketplace</h3>
+<h3 id="2-create-module-mold-yaml-config-in-root-directory-of-the-project">2. Create <code>module-mold.yaml</code> config in root directory of the project</h3>
+<p>And it&#39;ll look like this:</p>
+<pre><code>templateRootDir: <span class="hljs-keyword">module</span>-template
+rootPackage: com.example
+moduleTypes:
+  - <span class="hljs-class"><span class="hljs-keyword">type</span>: <span class="hljs-title">data</span></span>
+    template: android-<span class="hljs-keyword">module</span>
+  - <span class="hljs-class"><span class="hljs-keyword">type</span>: <span class="hljs-title">feature</span></span>
+    template: android-<span class="hljs-keyword">module</span>
+  - <span class="hljs-class"><span class="hljs-keyword">type</span>: <span class="hljs-title">infrastructure</span></span>
+    template: android-<span class="hljs-keyword">module</span>
+  - <span class="hljs-class"><span class="hljs-keyword">type</span>: <span class="hljs-title">navigation</span></span>
+    template: android-<span class="hljs-keyword">module</span>
+</code></pre><p>In the example above:</p>
+<ul>
+<li><code>templateRootDir</code>: The relative path of the directory that&#39;ll contain the templates you&#39;re going to create</li>
+<li><code>rootPackage</code>: This will be used to concatenate with module name to form the package of the module. For example if the <code>rootPackage</code> is <code>com.example</code> and if you create a module named <code>foo</code>, then the package for the module will be <code>com.example.foo</code>. The package will be inserted into <code>build.gradle</code>, and also to create source folder in <code>src/main/java</code> etc.</li>
+<li><code>moduleTypes</code>:  List out all the possible module types in your project<ul>
+<li><code>type</code>: This will a directory resides under the root directory of the project.</li>
+<li><code>template</code>: This is a directory under the <code>templateRootDir</code>. And you can put whatever you want in this directory, and they&#39;ll be copied over to the new module in the end.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-create-your-template-s-">3. Create your template(s)</h3>
+<p>Like described above, you&#39;ll need a <code>templateRootDir</code> in the config file. Let&#39;s assume it is <code>module-template</code>, in which I have a template <code>android-module</code> for android modules.
+Now I&#39;m having a template(s) directory structure as this:</p>
+<pre><code><span class="hljs-class"><span class="hljs-keyword">module</span>-<span class="hljs-title">template</span></span>
+└── android-<span class="hljs-class"><span class="hljs-keyword">module</span></span>
+    ├── build.gradle
+    └── src
+        └── main
+            ├── AndroidManifest.xml
+            ├── java
+            └── res
+</code></pre><h3 id="4-about-placeholders">4. About Placeholders</h3>
+<p>If you have the following placeholders in your template&#39;s <code>build.gradle</code>, the plugin will replace the placeholders with real values:</p>
+<ul>
+<li><code>MODULE_MOLD_MODULE_NAME</code>: The module name you&#39;ve provided when you create the module, such as <code>foo</code> as above example</li>
+<li><code>MODULE_MOLD_MODULE_PACKAGE</code>: The package of the new module, such as <code>com.example.foo</code> as above example</li>
+</ul>
+<h2 id="compatibility">Compatibility</h2>
+<ul>
+<li>This plugin also works for projects that have <code>build.gradle.kts</code> and <code>settings.gradle.kts</code></li>
+</ul>
+<h2 id="contributing">Contributing</h2>
+<p>You&#39;re welcome to contribute to this project to cater for different project structures than current assumptions.</p>
   ]]></description>
 
   <!-- Product and plugin compatibility requirements.
@@ -29,7 +95,7 @@
   <actions>
     <group
             id="org.intellij.sdk.action.DynamicActionGroup"
-            class="com.xero.intellijplugin.createmodule.action.MenuActions"
+            class="com.totrit.modulemold.action.MenuActions"
             popup="true"
             text="Create Module"
             description="Choose a module type" >

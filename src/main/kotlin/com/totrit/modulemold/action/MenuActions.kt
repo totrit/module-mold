@@ -1,9 +1,9 @@
-package com.xero.intellijplugin.createmodule.action
+package com.totrit.modulemold.action
 
 import com.intellij.openapi.actionSystem.ActionGroup
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.xero.intellijplugin.createmodule.config.ConfigParser
+import com.totrit.modulemold.config.ConfigParser
 
 class MenuActions: ActionGroup() {
     private val configParser = ConfigParser()

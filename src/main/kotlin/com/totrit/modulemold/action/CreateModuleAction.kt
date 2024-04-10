@@ -1,13 +1,13 @@
-package com.xero.intellijplugin.createmodule.action
+package com.totrit.modulemold.action
 
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.io.FileUtilRt.createTempDirectory
-import com.xero.intellijplugin.createmodule.config.ModuleTypeConfig
-import com.xero.intellijplugin.createmodule.param.CollectParameters
-import com.xero.intellijplugin.createmodule.util.Messenger
+import com.totrit.modulemold.config.ModuleTypeConfig
+import com.totrit.modulemold.param.CollectParameters
+import com.totrit.modulemold.util.Messenger
 import java.io.File
 import java.io.IOException
 

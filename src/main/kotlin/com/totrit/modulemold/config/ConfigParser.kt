@@ -1,4 +1,4 @@
-package com.xero.intellijplugin.createmodule.config
+package com.totrit.modulemold.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory

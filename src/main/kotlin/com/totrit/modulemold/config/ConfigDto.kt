@@ -1,4 +1,4 @@
-package com.xero.intellijplugin.createmodule.config
+package com.totrit.modulemold.config
 
 data class ConfigDto(
     val templateRootDir: String,
