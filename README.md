@@ -1,5 +1,7 @@
 Create module for Android project from template
 
+!['Create Module' in 'Tools' menu in Intellij](https://github.com/totrit/module-mold/blob/main/img/screenshot.png?raw=true "'Create Module' in 'Tools' menu in Intellij")
+
 ## What This Tries To Solve
 In an Android's typical multi-module project, we often need to create new modules. 
 Traditionally we need to copy from an existent module. 
