@@ -20,10 +20,16 @@ class CreateModuleAction(
 
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project ?: return
-        val parameters = collectParameters(project) ?: return messenger.displayInfoMessage(project, "Didn't choose a module name")
+        val parameters = collectParameters(project) ?: return messenger.displayInfoMessage(
+            "Module creation is abandoned because no module name is chosen.",
+            isError = true
+            )
         val moduleName = parameters.moduleName
         if (checkModuleExists(moduleName)) {
-            return messenger.displayInfoMessage(project, "Module '$moduleName' of type '${moduleTypeConfig.type}' already exists!")
+            return messenger.displayInfoMessage(
+                "Module '$moduleName' of type '${moduleTypeConfig.type}' already exists!",
+                isError = true
+            )
         }
         val provisionalDir = copyTemplateToProvisionalDir(moduleName)
         createMainSourceDir(provisionalDir, moduleTypeConfig.rootPackage, moduleName)
@@ -31,7 +37,10 @@ class CreateModuleAction(
         copyToCurrentProject(provisionalDir, moduleName)
         registerModule(project, moduleName)
         triggerGradleSync(e)
-        messenger.displayInfoMessage(project, "Module '${moduleName}' of type '${moduleTypeConfig.type}' has been created!")
+        messenger.displayInfoMessage(
+            "Module '${moduleName}' of type '${moduleTypeConfig.type}' has been created!",
+            isError = false
+        )
     }
 
     private fun registerModule(project: Project, moduleName: String) {

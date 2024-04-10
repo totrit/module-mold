@@ -1,9 +1,9 @@
 package com.xero.intellijplugin.createmodule.util
 
-import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.Messages
 
 class Messenger {
-    fun displayInfoMessage(project: Project, info: String) {
-
+    fun displayInfoMessage(info: String, isError: Boolean) {
+        Messages.showMessageDialog(info, if (isError) "Error" else "Info", if (isError) Messages.getErrorIcon() else Messages.getInformationIcon())
     }
 }

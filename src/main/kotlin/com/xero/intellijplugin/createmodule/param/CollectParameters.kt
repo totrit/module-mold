@@ -9,7 +9,7 @@ class CollectParameters {
             project,
             "In lower case",
             "Please Choose Module Name",
-            Messages.getInformationIcon()
+            null
         )
         return moduleName?.let { UserInputParams(it) }
     }
