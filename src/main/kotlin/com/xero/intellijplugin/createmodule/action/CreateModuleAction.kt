@@ -14,7 +14,7 @@ import java.io.IOException
 
 class CreateModuleAction(
     private val moduleTypeConfig: ModuleTypeConfig,
-): AnAction("Create '${moduleTypeConfig.type}' module...") {
+): AnAction("Create ${getArticleForWord(moduleTypeConfig.type)} '${moduleTypeConfig.type}' module...") {
     private val collectParameters = CollectParameters()
     private val messenger = Messenger()
 
@@ -41,9 +41,24 @@ class CreateModuleAction(
                 continue
             }
             val lines = settingsFile.readLines()
-            val lastIndexOfModuleOfSameType = lines.indexOfLast { Regex("^include .+:${moduleTypeConfig.type}:.+").matches(it) }
-            val newIncludeInsertPosition = if (lastIndexOfModuleOfSameType != -1) {
-                lastIndexOfModuleOfSameType
+            val reg = Regex("^include [^:]+:(${moduleTypeConfig.type}:[^:]+).+")
+            var bestInsertPositionOfSameModuleType = -1
+            var hasSeenSameTypeEntry = false
+            for((index, s) in lines.withIndex()) {
+                val matchResult = reg.find(s)
+                if (matchResult != null) {
+                    hasSeenSameTypeEntry = true
+                    bestInsertPositionOfSameModuleType = index
+                    if ("${moduleTypeConfig.type}:$moduleName" < matchResult.groupValues[1]) {
+                        break
+                    }
+                } else if (hasSeenSameTypeEntry) {
+                    bestInsertPositionOfSameModuleType = index
+                    break
+                }
+            }
+            val newIncludeInsertPosition = if (bestInsertPositionOfSameModuleType != -1) {
+                bestInsertPositionOfSameModuleType
             } else {
                 lines.indexOfLast { Regex("^include .+:.+").matches(it) }
             }
@@ -55,7 +70,7 @@ class CreateModuleAction(
             val linesForOutput = if (newIncludeInsertPosition == -1 || newIncludeInsertPosition == lines.size - 1) {
                 lines.plus(newLine)
             } else {
-                lines.subList(0, newIncludeInsertPosition + 1).plus(newLine).plus(lines.subList(newIncludeInsertPosition + 1, lines.size))
+                lines.subList(0, newIncludeInsertPosition).plus(newLine).plus(lines.subList(newIncludeInsertPosition, lines.size))
             }
             settingsFile.writeText(linesForOutput.joinToString("\n"))
         }
@@ -106,7 +121,18 @@ class CreateModuleAction(
 
     private fun triggerGradleSync(e: AnActionEvent) {
         val am: ActionManager = ActionManager.getInstance()
-        val sync: AnAction = am.getAction("Android.SyncProject") ?: return
+//        val sync: AnAction = am.getAction("Android.SyncProject") ?: return
+        val sync: AnAction = am.getAction("ExternalSystem.RefreshAllProjects") ?: return
         sync.actionPerformed(e)
+    }
+
+    private companion object {
+        fun getArticleForWord(word: String): String {
+            if (arrayOf("a", "e", "i", "o", "u").any { word.startsWith(it, ignoreCase = true) }) {
+                return "an"
+            } else {
+                return "a"
+            }
+        }
     }
 }
