@@ -19,7 +19,7 @@ class ConfigParser {
                 ModuleTypeConfig(
                     type = it.type,
                     templateDir = File(File(project.basePath, dto.templateRootDir), it.template),
-                    rootDir = File(project.basePath, it.type),
+                    rootDir = File(project.basePath, it.rootDir ?: it.type),
                     rootPackage = dto.rootPackage,
                 )
             }

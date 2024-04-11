@@ -9,4 +9,5 @@ data class ConfigDto(
 data class ModuleTypeConfigDto(
     val type: String,
     val template: String,
+    val rootDir: String?,
 )

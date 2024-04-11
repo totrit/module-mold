@@ -1,0 +1,14 @@
+templateRootDir: module-template
+rootPackage: com.totrit.modulemold.exampleapp
+moduleTypes:
+  - type: feature # Notice here 'feature' will also be used as the root folder for all the modules of this type
+    template: android-lib
+  - type: kotlin library
+    template: kotlin-lib
+    rootDir: library  # Use 'rootDir' when the library needs to be under a folder that's different from 'type'
+  - type: android library
+    template: android-lib
+    rootDir: library
+  - type: top-level library
+    template: android-lib
+    rootDir: .  # Notice here the library can be directly put under project root folder
