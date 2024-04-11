@@ -5,8 +5,8 @@ plugins {
   id("org.jetbrains.intellij") version "1.17.2"
 }
 
-group = "com.xero"
-version = "1.0-SNAPSHOT"
+group = "com.totrit"
+version = "0.1.1"
 
 repositories {
   mavenCentral()
@@ -37,13 +37,13 @@ tasks {
   }
 
   signPlugin {
-    certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-    privateKey.set(System.getenv("PRIVATE_KEY"))
-    password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+    certificateChainFile.set(file("~/.jetbrains/chain.crt"))
+    privateKeyFile.set(file("~/.jetbrains/private.pem"))
+    password.set(System.getenv("JETBRAINS_PRIVATE_KEY_PASSWORD"))
   }
 
   publishPlugin {
-    token.set(System.getenv("PUBLISH_TOKEN"))
+    token.set(System.getenv("JETBRAINS_PUBLISH_TOKEN"))
   }
 }
 

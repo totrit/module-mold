@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "intellij-plugin-create-module"
+rootProject.name = "module-mold"

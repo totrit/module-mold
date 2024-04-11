@@ -130,8 +130,7 @@ class CreateModuleAction(
 
     private fun triggerGradleSync(e: AnActionEvent) {
         val am: ActionManager = ActionManager.getInstance()
-//        val sync: AnAction = am.getAction("Android.SyncProject") ?: return
-        val sync: AnAction = am.getAction("ExternalSystem.RefreshAllProjects") ?: return
+        val sync: AnAction = am.getAction("Android.SyncProject") ?: return
         sync.actionPerformed(e)
     }
 
