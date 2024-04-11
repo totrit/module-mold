@@ -14,12 +14,17 @@
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
   <description><![CDATA[
-<p>Create module for Android project from template</p>
+<p>Create module for Android project from your own template</p>
+<p><img src="https://github.com/totrit/module-mold/blob/main/img/setup.png?raw=true" alt="Create config file and template(s)">
+<img src="https://github.com/totrit/module-mold/blob/main/img/choose-type.png?raw=true" alt="Choose which type of module to create">
+<img src="https://github.com/totrit/module-mold/blob/main/img/choose-name.png?raw=true" alt="Choose a name for the new module">
+<img src="https://github.com/totrit/module-mold/blob/main/img/result.png?raw=true" alt="New module created!"></p>
 <h2 id="what-this-tries-to-solve">What This Tries To Solve</h2>
 <p>In an Android&#39;s typical multi-module project, we often need to create new modules.
-Traditionally we need to copy from an existent module.
-Then we need to tweak the copy by deleting some irrelevant files, changing <code>build.gradle</code>, adding the new module to <code>settings.gradle</code>.</p>
-<p>It&#39;ll be good to automate this process and only need some necessary input, such module name, from the developer.</p>
+And the Android Studio&#39;s built-in <code>New Module...</code> isn&#39;t for everyone because, for instance, you may have an established pattern in your project of how the <code>build.gradle</code> of a module would look like.
+Traditionally we need to copy from an existent module in your project.
+Then we need to tweak the copy by deleting some irrelevant files, changing <code>build.gradle</code>, registering the new module to <code>settings.gradle</code>, etc.</p>
+<p>It&#39;ll be good to automate this process so that minimum intervene is required from the developer, such as the module name.</p>
 <h2 id="how-it-works">How It Works</h2>
 <p>Assuming you have different <em>types</em> of modules in your project, such as some non-user-facing <code>library</code> modules and some other user-facing <code>feature</code> modules, etc.
 You can create a config file, for the plugin, in your project to dictate how each type of module should be created.
@@ -29,25 +34,28 @@ From the menu options you can choose what type of module you&#39;d want to creat
 <li>Copy the corresponding module template to a temporary directory</li>
 <li>Replace placeholders in <code>build.gradle</code> file in the copy</li>
 <li>Create source folder as per the package of the module</li>
-<li>Copy the copy in the temporary directory into the project</li>
-<li>Insert an entry for the new module into <code>settings.gradle</code></li>
+<li>Copy <em>the copy</em> in the temporary directory into the project</li>
+<li>Register the new module <code>settings.gradle</code></li>
 <li>Invoke a Gradle Sync for the project</li>
 </ul>
 <h2 id="steps-to-set-up">Steps To Set Up</h2>
 <h3 id="1-install-module-mold-plugin-from-intellij-marketplace">1. Install <code>Module Mold</code> plugin from Intellij Marketplace</h3>
 <h3 id="2-create-module-mold-yaml-config-in-root-directory-of-the-project">2. Create <code>module-mold.yaml</code> config in root directory of the project</h3>
-<p>And it&#39;ll look like this:</p>
-<pre><code>templateRootDir: <span class="hljs-keyword">module</span>-template
-rootPackage: com.example
-moduleTypes:
-  - <span class="hljs-class"><span class="hljs-keyword">type</span>: <span class="hljs-title">data</span></span>
-    template: android-<span class="hljs-keyword">module</span>
-  - <span class="hljs-class"><span class="hljs-keyword">type</span>: <span class="hljs-title">feature</span></span>
-    template: android-<span class="hljs-keyword">module</span>
-  - <span class="hljs-class"><span class="hljs-keyword">type</span>: <span class="hljs-title">infrastructure</span></span>
-    template: android-<span class="hljs-keyword">module</span>
-  - <span class="hljs-class"><span class="hljs-keyword">type</span>: <span class="hljs-title">navigation</span></span>
-    template: android-<span class="hljs-keyword">module</span>
+<p>And it&#39;ll look something like this:</p>
+<pre><code><span class="hljs-symbol">templateRootDir:</span> <span class="hljs-class"><span class="hljs-keyword">module</span>-<span class="hljs-title">template</span></span>
+<span class="hljs-symbol">rootPackage:</span> com.example
+<span class="hljs-symbol">moduleTypes:</span>
+  - <span class="hljs-symbol">type:</span> feature <span class="hljs-comment"># Notice here 'feature' will also be used as the root folder for all the created modules of this type</span>
+    <span class="hljs-symbol">template:</span> android-<span class="hljs-class"><span class="hljs-keyword">lib</span></span>
+  - <span class="hljs-symbol">type:</span> kotlin library
+    <span class="hljs-symbol">template:</span> kotlin-<span class="hljs-class"><span class="hljs-keyword">lib</span></span>
+    <span class="hljs-symbol">rootDir:</span> library  <span class="hljs-comment"># Use 'rootDir' when the module needs to be under a folder that's different from the name of the 'type'</span>
+  - <span class="hljs-symbol">type:</span> android library
+    <span class="hljs-symbol">template:</span> android-<span class="hljs-class"><span class="hljs-keyword">lib</span></span>
+    <span class="hljs-symbol">rootDir:</span> library
+  - <span class="hljs-symbol">type:</span> top-level library
+    <span class="hljs-symbol">template:</span> android-<span class="hljs-class"><span class="hljs-keyword">lib</span></span>
+    <span class="hljs-symbol">rootDir:</span> .  <span class="hljs-comment"># Notice here the module can be directly put under project root folder</span>
 </code></pre><p>In the example above:</p>
 <ul>
 <li><code>templateRootDir</code>: The relative path of the directory that&#39;ll contain the templates you&#39;re going to create</li>
@@ -55,21 +63,30 @@ moduleTypes:
 <li><code>moduleTypes</code>:  List out all the possible module types in your project<ul>
 <li><code>type</code>: This will a directory resides under the root directory of the project.</li>
 <li><code>template</code>: This is a directory under the <code>templateRootDir</code>. And you can put whatever you want in this directory, and they&#39;ll be copied over to the new module in the end.</li>
+<li><code>rootDir</code>: Use this when the dir that you want to put the new module into is different from the name of &#39;type&#39;. And use &#39;.&#39; to indicate you want the new module to be directly under root directory of the project</li>
 </ul>
 </li>
 </ul>
 <h3 id="3-create-your-template-s-">3. Create your template(s)</h3>
-<p>Like described above, you&#39;ll need a <code>templateRootDir</code> in the config file. Let&#39;s assume it is <code>module-template</code>, in which I have a template <code>android-module</code> for android modules.
-Now I&#39;m having a template(s) directory structure as this:</p>
+<p>Like described above, you&#39;ll need to designate the <code>templateRootDir</code> in the config file. Let&#39;s assume it is <code>module-template</code>, in which I have a template <code>android-lib</code> for android modules, and &#39;kotlin-lib&#39; for plain Kotlin modules.
+Now I&#39;m having the template(s) directory structure as this:</p>
 <pre><code><span class="hljs-class"><span class="hljs-keyword">module</span>-<span class="hljs-title">template</span></span>
-└── android-<span class="hljs-class"><span class="hljs-keyword">module</span></span>
+├── android-<span class="hljs-class"><span class="hljs-keyword">lib</span></span>
+│   ├── build.gradle
+│   └── src
+│       ├── main
+│       │   ├── AndroidManifest.xml
+│       │   ├── java
+│       │   └── res
+│       └── test
+│           └── java
+└── kotlin-<span class="hljs-class"><span class="hljs-keyword">lib</span></span>
     ├── build.gradle
     └── src
         └── main
-            ├── AndroidManifest.xml
-            ├── java
-            └── res
-</code></pre><h3 id="4-about-placeholders">4. About Placeholders</h3>
+            └── java
+</code></pre><p>Obviously you can create as many templates as you want.</p>
+<h3 id="4-about-placeholders">4. About Placeholders</h3>
 <p>If you have the following placeholders in your template&#39;s <code>build.gradle</code>, the plugin will replace the placeholders with real values:</p>
 <ul>
 <li><code>MODULE_MOLD_MODULE_NAME</code>: The module name you&#39;ve provided when you create the module, such as <code>foo</code> as above example</li>
@@ -81,6 +98,7 @@ Now I&#39;m having a template(s) directory structure as this:</p>
 </ul>
 <h2 id="contributing">Contributing</h2>
 <p>You&#39;re welcome to contribute to this project to cater for different project structures than current assumptions.</p>
+
   ]]></description>
 
   <!-- Product and plugin compatibility requirements.

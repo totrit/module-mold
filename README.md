@@ -1,6 +1,9 @@
 Create module for Android project from your own template
 
-!['Create Module' in 'Tools' menu in Intellij](https://github.com/totrit/module-mold/blob/main/img/screenshot.png?raw=true "'Create Module' in 'Tools' menu in Intellij")
+![Create config file and template(s)](https://github.com/totrit/module-mold/blob/main/img/setup.png?raw=true)
+![Choose which type of module to create](https://github.com/totrit/module-mold/blob/main/img/choose-type.png?raw=true)
+![Choose a name for the new module](https://github.com/totrit/module-mold/blob/main/img/choose-name.png?raw=true)
+![New module created!](https://github.com/totrit/module-mold/blob/main/img/result.png?raw=true)
 
 ## What This Tries To Solve
 In an Android's typical multi-module project, we often need to create new modules. 
