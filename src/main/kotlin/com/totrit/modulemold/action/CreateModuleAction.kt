@@ -71,10 +71,15 @@ class CreateModuleAction(
             } else {
                 lines.indexOfLast { Regex("^include .+:.+").matches(it) }
             }
-            val newLine = if (settingsFileName.endsWith(".kts")) {
-                "include (\":${moduleTypeConfig.type}:$moduleName\")"
+            val moduleId = if (moduleTypeConfig.rootDir.path == project.basePath) {
+                ":$moduleName"
             } else {
-                "include ':${moduleTypeConfig.type}:$moduleName'"
+                ":${moduleTypeConfig.rootDir.name}:$moduleName"
+            }
+            val newLine = if (settingsFileName.endsWith(".kts")) {
+                "include (\"$moduleId\")"
+            } else {
+                "include '$moduleId'"
             }
             val linesForOutput = if (newIncludeInsertPosition == -1 || newIncludeInsertPosition == lines.size - 1) {
                 lines.plus(newLine)
