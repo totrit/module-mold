@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.totrit"
-version = "0.4.2"
+version = "0.5"
 
 repositories {
   mavenCentral()

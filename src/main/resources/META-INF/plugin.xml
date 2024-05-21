@@ -86,12 +86,19 @@ Now I&#39;m having the template(s) directory structure as this:</p>
 <p>If you have the following placeholders in your template&#39;s <code>build.gradle</code>, the plugin will replace the placeholders with real values:</p>
 <ul>
 <li><code>MODULE_MOLD_MODULE_NAME</code>: The module name you&#39;ve provided when you create the module, such as <code>foo</code> as above example</li>
-<li><code>MODULE_MOLD_MODULE_PACKAGE</code>: The package of the new module, such as <code>com.example.foo</code> as above example</li>
+<li><code>MODULE_MOLD_MODULE_PACKAGE</code>: The package of the new module, such as <code>com.example.foo</code> as above example<ul>
+<li>You can also create a folder named <code>MODULE_MOLD_MODULE_PACKAGE</code> anywhere under <code>src</code> directory of the template. And it&#39;ll be automatically replaced with package folders (e.g. <code>com/example/foo</code>)</li>
+</ul>
+</li>
 </ul>
 <h2 id="compatibility">Compatibility</h2>
 <ul>
 <li>This plugin also works for projects that have <code>build.gradle.kts</code> and <code>settings.gradle.kts</code></li>
 </ul>
+<h2 id="common-issues-and-resolutions">Common Issues and Resolutions</h2>
+<h3 id="1-empty-folders-such-as-module_mold_module_package-in-template-can-t-be-commited-to-git">1. Empty folders (such as <code>MODULE_MOLD_MODULE_PACKAGE</code>) in template can&#39;t be commited to git</h3>
+<p>You can put a <code>.gitkeep</code> empty file under the otherwise empty directory in order to commit the folder to git.
+And the <code>.gitkeep</code> will not be copied over to the new module when you come to create a module.</p>
 <h2 id="contributing">Contributing</h2>
 <p>You&#39;re welcome to contribute to this project to cater for different project structures than current assumptions.</p>
 

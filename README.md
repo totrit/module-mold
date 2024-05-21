@@ -80,9 +80,15 @@ Obviously you can create as many templates as you want.
 If you have the following placeholders in your template's `build.gradle`, the plugin will replace the placeholders with real values:
 - `MODULE_MOLD_MODULE_NAME`: The module name you've provided when you create the module, such as `foo` as above example
 - `MODULE_MOLD_MODULE_PACKAGE`: The package of the new module, such as `com.example.foo` as above example
+  - You can also create a folder named `MODULE_MOLD_MODULE_PACKAGE` anywhere under `src` directory of the template. And it'll be automatically replaced with package folders (e.g. `com/example/foo`)
 
 ## Compatibility
 - This plugin also works for projects that have `build.gradle.kts` and `settings.gradle.kts`
+
+## Common Issues and Resolutions
+### 1. Empty folders (such as `MODULE_MOLD_MODULE_PACKAGE`) in template can't be commited to git
+You can put a `.gitkeep` empty file under the otherwise empty directory in order to commit the folder to git.
+And the `.gitkeep` will not be copied over to the new module when you come to create a module.
 
 ## Contributing
 You're welcome to contribute to this project to cater for different project structures than current assumptions.
