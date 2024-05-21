@@ -32,7 +32,7 @@ class CreateModuleAction(
             )
         }
         val provisionalDir = copyTemplateToProvisionalDir(moduleName)
-        createMainSourceDir(provisionalDir, moduleTypeConfig.rootPackage, moduleName)
+        replacePlaceholderDir(provisionalDir, moduleName)
         replacePlaceholdersWithValues(provisionalDir, moduleName)
         copyToCurrentProject(provisionalDir, moduleName)
         registerModule(project, moduleName)
@@ -115,10 +115,13 @@ class CreateModuleAction(
         return "${moduleTypeConfig.rootPackage}.$moduleName"
     }
 
-    private fun createMainSourceDir(provisionalDir: File, rootPackage: String, moduleName: String) {
-        val javaFolder = File(provisionalDir, "src/main/java")
-        if (javaFolder.exists()) {
-            File(javaFolder, rootPackage.replace(".", "/") + "/" + moduleName).mkdirs()
+    private fun replacePlaceholderDir(provisionalDir: File, moduleName: String) {
+        val srcFolder = File(provisionalDir, "src")
+        srcFolder.walk().filter { it.isDirectory && it.name == "MODULE_MOLD_MODULE_PACKAGE" }.forEach { placeholderDir ->
+            val packageDir = File(placeholderDir.parentFile, getModulePackage(moduleName).replace(".", "/"))
+            packageDir.mkdirs()
+            placeholderDir.listFiles()?.filterNot { it.name == ".gitkeep" }?.forEach { it.copyRecursively(File(packageDir, it.name)) }
+            placeholderDir.deleteRecursively()
         }
     }
 
