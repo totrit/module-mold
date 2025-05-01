@@ -1,6 +1,5 @@
 package com.totrit.modulemold.action
 
-import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.project.Project
@@ -36,7 +35,7 @@ class CreateModuleAction(
         replacePlaceholdersWithValues(provisionalDir, moduleName)
         copyToCurrentProject(provisionalDir, moduleName)
         registerModule(project, moduleName)
-        triggerGradleSync(e)
+        triggerGradleSync(project)
         messenger.displayInfoMessage(
             "Module '${moduleName}' of type '${moduleTypeConfig.type}' has been created!",
             isError = false
@@ -136,10 +135,48 @@ class CreateModuleAction(
         }
     }
 
-    private fun triggerGradleSync(e: AnActionEvent) {
-        val am: ActionManager = ActionManager.getInstance()
-        val sync: AnAction = am.getAction("Android.SyncProject") ?: return
-        am.tryToExecute(sync, null, null, null, true)
+    private fun triggerGradleSync(project: Project) {
+        try {
+            val invokerClass = Class.forName("com.android.tools.idea.gradle.project.sync.GradleSyncInvoker")
+            val getInstanceMethod = invokerClass.getMethod("getInstance")
+            val requestClass = Class.forName("com.android.tools.idea.gradle.project.sync.GradleSyncInvoker\$Request")
+            val requestProjectSyncMethod = invokerClass.getMethod(
+                "requestProjectSync",
+                Project::class.java,
+                requestClass,
+                Class.forName("com.android.tools.idea.gradle.project.sync.GradleSyncListener")
+            )
+
+            // Create a Request instance using the current constructor pattern
+            val triggerClass = Class.forName("com.google.wireless.android.sdk.stats.GradleSyncStats\$Trigger")
+            val requestConstructor = requestClass.getConstructor(
+                triggerClass,
+                Class.forName("com.android.tools.idea.gradle.project.sync.SwitchVariantRequest", true, invokerClass.classLoader),
+                Boolean::class.java,
+                Boolean::class.java,
+                Class.forName("com.android.tools.idea.gradle.project.sync.SyncTestMode", true, invokerClass.classLoader)
+            )
+
+            // Create an instance of Request (all optional parameters are set to their defaults)
+            val userRequestedTrigger = triggerClass.enumConstants.find { it.toString() == "TRIGGER_MODIFIER_ADD_MODULE_DEPENDENCY" }
+                ?: triggerClass.enumConstants.first() // Fallback to the fir
+            val request = requestConstructor.newInstance(
+                userRequestedTrigger,
+                null, // requestedVariantChange
+                false, // importDefaultVariants
+                false, // dontFocusSyncFailureOutput
+                Class.forName("com.android.tools.idea.gradle.project.sync.SyncTestMode", true, invokerClass.classLoader)
+                    .getField("PRODUCTION").get(null) // syncTestMode
+            )
+
+            val invokerInstance = getInstanceMethod.invoke(null)
+            requestProjectSyncMethod.invoke(invokerInstance, project, request, null)
+        } catch (e: ClassNotFoundException) {
+            // Not Android Studio — ignore or log
+        } catch (e: Exception) {
+            // Handle unexpected issues gracefully
+            e.printStackTrace()
+        }
     }
 
     private companion object {

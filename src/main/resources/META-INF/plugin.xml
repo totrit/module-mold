@@ -100,13 +100,14 @@ Now I&#39;m having the template(s) directory structure as this:</p>
 <p>You can put a <code>.gitkeep</code> empty file under the otherwise empty directory in order to commit the folder to git.
 And the <code>.gitkeep</code> will not be copied over to the new module when you come to create a module.</p>
 <h2 id="contributing">Contributing</h2>
-<p>You&#39;re welcome to contribute to this project to cater for different project structures than current assumptions.</p>
+<p>You&#39;re welcome to contribute to this project (https://github.com/totrit/module-mold) to cater for different project structures than current assumptions.</p>
 
   ]]></description>
 
   <!-- Product and plugin compatibility requirements.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
   <depends>com.intellij.modules.platform</depends>
+  <depends optional="true" config-file="android-studio-specific.xml">org.jetbrains.android</depends>
 
   <!-- Extension points defined by the plugin.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->

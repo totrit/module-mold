@@ -1,0 +1,4 @@
+<idea-plugin>
+    <depends>org.jetbrains.plugins.gradle</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+</idea-plugin>

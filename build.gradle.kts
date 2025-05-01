@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.totrit"
-version = "0.6.3"
+version = "1.0"
 
 repositories {
   mavenCentral()
@@ -31,6 +31,14 @@ tasks {
   patchPluginXml {
     sinceBuild.set("232")
     untilBuild.set("252.*")
+
+    changeNotes.set("""
+        <ul>
+            <li>Support for 2025.2 IDEs</li>
+            <li>Automatically Gradle Sync after module created</li>
+            <li>Bug fixes and stability improvements</li>
+        </ul>
+    """.trimIndent())
   }
 
   signPlugin {
