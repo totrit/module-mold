@@ -2,24 +2,18 @@ plugins {
   id("java")
   kotlin("jvm") version "2.1.20"
   kotlin("plugin.serialization") version "1.9.23"
-  id("org.jetbrains.intellij") version "1.17.2"
+  id("org.jetbrains.intellij.platform") version "2.5.0"
 }
 
 group = "com.totrit"
-version = "0.6"
+version = "0.6.3"
 
 repositories {
   mavenCentral()
-}
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
-intellij {
-  version.set("2024.1.6")
-  type.set("IC") // Target IDE Platform
-
-  plugins.set(listOf())
-  updateSinceUntilBuild.set(true)
+  intellijPlatform {
+    defaultRepositories()
+  }
 }
 
 tasks {
@@ -36,6 +30,7 @@ tasks {
 
   patchPluginXml {
     sinceBuild.set("232")
+    untilBuild.set("252.*")
   }
 
   signPlugin {
@@ -52,6 +47,9 @@ tasks {
 val jacksonVersion = "2.17.0"
 
 dependencies {
+  intellijPlatform {
+    intellijIdeaCommunity("2025.1")
+  }
   implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
   implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion")

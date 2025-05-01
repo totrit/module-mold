@@ -139,7 +139,7 @@ class CreateModuleAction(
     private fun triggerGradleSync(e: AnActionEvent) {
         val am: ActionManager = ActionManager.getInstance()
         val sync: AnAction = am.getAction("Android.SyncProject") ?: return
-        sync.actionPerformed(e)
+        am.tryToExecute(sync, null, null, null, true)
     }
 
     private companion object {
