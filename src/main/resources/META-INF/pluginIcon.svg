@@ -1,19 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px" viewBox="0 0 40 40" version="1.1">
-<g id="surface1">
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(44.313725%,87.45098%,99.607843%);fill-opacity:1;" d="M 0 5.8125 L 40 5.8125 L 40 34.1875 L 0 34.1875 Z M 0 5.8125 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(60.784314%,90.588235%,99.607843%);fill-opacity:1;" d="M 0 5.8125 L 20 5.8125 L 20 34.1875 L 0 34.1875 Z M 0 5.8125 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(5.490196%,75.686275%,95.686275%);fill-opacity:1;" d="M 4.539062 10.351562 L 11.871094 10.351562 L 11.871094 17.683594 L 4.539062 17.683594 Z M 4.539062 10.351562 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(5.490196%,75.686275%,95.686275%);fill-opacity:1;" d="M 4.539062 22.316406 L 11.871094 22.316406 L 11.871094 29.644531 L 4.539062 29.644531 Z M 4.539062 22.316406 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(9.803922%,80%,99.607843%);fill-opacity:1;" d="M 4.539062 10.351562 L 8.320312 10.351562 L 8.320312 17.683594 L 4.539062 17.683594 Z M 4.539062 10.351562 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(9.803922%,80%,99.607843%);fill-opacity:1;" d="M 4.539062 22.316406 L 8.320312 22.316406 L 8.320312 29.644531 L 4.539062 29.644531 Z M 4.539062 22.316406 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(5.490196%,75.686275%,95.686275%);fill-opacity:1;" d="M 16.335938 10.351562 L 23.664062 10.351562 L 23.664062 17.683594 L 16.335938 17.683594 Z M 16.335938 10.351562 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(5.490196%,75.686275%,95.686275%);fill-opacity:1;" d="M 16.335938 22.316406 L 23.664062 22.316406 L 23.664062 29.644531 L 16.335938 29.644531 Z M 16.335938 22.316406 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(9.803922%,80%,99.607843%);fill-opacity:1;" d="M 16.335938 10.351562 L 20.113281 10.351562 L 20.113281 17.683594 L 16.335938 17.683594 Z M 16.335938 10.351562 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(9.803922%,80%,99.607843%);fill-opacity:1;" d="M 16.335938 22.316406 L 20.113281 22.316406 L 20.113281 29.644531 L 16.335938 29.644531 Z M 16.335938 22.316406 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(5.490196%,75.686275%,95.686275%);fill-opacity:1;" d="M 28.128906 10.351562 L 35.460938 10.351562 L 35.460938 17.683594 L 28.128906 17.683594 Z M 28.128906 10.351562 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(5.490196%,75.686275%,95.686275%);fill-opacity:1;" d="M 28.128906 22.316406 L 35.460938 22.316406 L 35.460938 29.644531 L 28.128906 29.644531 Z M 28.128906 22.316406 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(9.803922%,80%,99.607843%);fill-opacity:1;" d="M 28.128906 10.351562 L 31.910156 10.351562 L 31.910156 17.683594 L 28.128906 17.683594 Z M 28.128906 10.351562 "/>
-<path style=" stroke:none;fill-rule:nonzero;fill:rgb(9.803922%,80%,99.607843%);fill-opacity:1;" d="M 28.128906 22.316406 L 31.910156 22.316406 L 31.910156 29.644531 L 28.128906 29.644531 Z M 28.128906 22.316406 "/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="40" height="40">
+  <defs>
+    <linearGradient id="green" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#66BB6A"/>
+      <stop offset="100%" stop-color="#43A047"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#42A5F5"/>
+      <stop offset="100%" stop-color="#1E88E5"/>
+    </linearGradient>
+    <linearGradient id="purple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#AB47BC"/>
+      <stop offset="100%" stop-color="#8E24AA"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFA726"/>
+      <stop offset="100%" stop-color="#FB8C00"/>
+    </linearGradient>
+    <linearGradient id="mold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#78909C"/>
+      <stop offset="100%" stop-color="#546E7A"/>
+    </linearGradient>
+    <marker id="arrowhead" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto">
+      <polygon points="0 0, 4 2, 0 4" fill="#78909C"/>
+    </marker>
+  </defs>
+  
+  <rect x="42" y="42" width="44" height="44" rx="8" fill="url(#mold)"/>
+  <rect x="50" y="50" width="28" height="28" rx="4" fill="#455A64"/>
+  
+  <line x1="40" y1="40" x2="34" y2="34" stroke="#78909C" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <line x1="88" y1="40" x2="94" y2="34" stroke="#78909C" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <line x1="40" y1="88" x2="34" y2="94" stroke="#78909C" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <line x1="88" y1="88" x2="94" y2="94" stroke="#78909C" stroke-width="3" marker-end="url(#arrowhead)"/>
+  
+  <rect x="4" y="4" width="28" height="28" rx="5" fill="url(#green)"/>
+  <rect x="96" y="4" width="28" height="28" rx="5" fill="url(#purple)"/>
+  <rect x="4" y="96" width="28" height="28" rx="5" fill="url(#amber)"/>
+  <rect x="96" y="96" width="28" height="28" rx="5" fill="url(#blue)"/>
 </svg>
