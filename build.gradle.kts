@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.totrit"
-version = "1.0"
+version = "1.1"
 
 repositories {
   mavenCentral()
@@ -30,11 +30,12 @@ tasks {
 
   patchPluginXml {
     sinceBuild.set("232")
-    untilBuild.set("252.*")
+    // Don't set untilBuild to allow compatibility with all future IDE versions
+    // Only set this if you use internal APIs that may break in future versions
 
     changeNotes.set("""
         <ul>
-            <li>Support for 2025.2 IDEs</li>
+            <li>Removed untilBuild restriction for future IDE compatibility</li>
             <li>Automatically Gradle Sync after module created</li>
             <li>Bug fixes and stability improvements</li>
         </ul>
